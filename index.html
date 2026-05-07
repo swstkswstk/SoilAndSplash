@@ -401,18 +401,18 @@ body.ann-gone {
 ───────────────────────────────────────────────────────── */
 .trust-bar {
   background: linear-gradient(90deg, #2a1408 0%, var(--earth) 50%, #2a1408 100%);
-  padding: 0 40px;
-  height: 56px;
+  padding: 14px 24px;          /* padding replaces fixed height — wraps cleanly */
   display: flex; justify-content: center;
-  gap: 0; align-items: center; flex-wrap: wrap;
+  gap: 8px 0; align-items: center; flex-wrap: wrap;
   border-top: 1px solid rgba(255,255,255,.05);
   border-bottom: 1px solid rgba(255,255,255,.05);
 }
 .trust-item {
   display: flex; align-items: center; gap: 8px;
-  color: rgba(255,255,255,.75); font-size: 13.5px; font-weight: 500;
-  padding: 0 28px;
+  color: rgba(255,255,255,.75); font-size: 13px; font-weight: 500;
+  padding: 6px 20px;           /* vertical padding so wrapped rows breathe */
   position: relative;
+  white-space: nowrap;
 }
 .trust-item + .trust-item::before {
   content: '';
@@ -421,7 +421,7 @@ body.ann-gone {
   width: 1px; height: 18px;
   background: rgba(255,255,255,.12);
 }
-.trust-icon   { font-size: 18px; }
+.trust-icon   { font-size: 17px; }
 .trust-item strong { color: var(--pool); }
 
 /* ─────────────────────────────────────────────────────────
@@ -449,8 +449,8 @@ body.ann-gone {
 ───────────────────────────────────────────────────────── */
 .perks-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px; margin-top: 52px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px; margin-top: 48px;
 }
 .perk {
   background: #fff; border-radius: 20px;
@@ -841,8 +841,9 @@ footer a { color: var(--pool); text-decoration: none; }
   .photo-grid   { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 220px 220px; }
   .photo-cell.tall { grid-row: span 1; }
   .vibes-grid   { grid-template-columns: 1fr; }
-  .section      { padding: 64px 24px; }
-  .trust-bar    { padding: 16px 24px; gap: 20px; }
+  .section      { padding: 56px 20px; }
+  .trust-bar    { padding: 12px 16px; }
+  .trust-item   { padding: 5px 14px; font-size: 12.5px; }
   .review-hero  { padding: 28px 24px; }
   .rating-label { margin-left: 0; margin-top: 12px; }
   .cta-card     { padding: 44px 28px; }
@@ -850,9 +851,36 @@ footer a { color: var(--pool); text-decoration: none; }
 }
 @media (max-width: 580px) {
   .photo-grid   { grid-template-columns: 1fr; grid-template-rows: 220px 220px 220px 220px 220px; }
-  .pkg-head, .pkg-body { padding-left: 24px; padding-right: 24px; }
+  .pkg-head, .pkg-body { padding-left: 20px; padding-right: 20px; }
   .loc-details  { gap: 24px; }
-  #ann-bar      { font-size: 11.5px; gap: 6px; }
+  #ann-bar      { font-size: 11.5px; gap: 6px; padding: 0 36px 0 12px; }
+
+  /* Trust bar: hide dividers between items when stacking to 2-col grid */
+  .trust-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    padding: 10px 12px;
+  }
+  .trust-item {
+    justify-content: center;
+    padding: 8px 10px;
+    font-size: 12px;
+    background: rgba(255,255,255,.04);
+    border-radius: 8px;
+  }
+  /* Hide pseudo-element dividers — grid handles spacing */
+  .trust-item + .trust-item::before { display: none; }
+
+  /* Perks: 2 columns on phones */
+  .perks-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .perk { padding: 20px 16px; }
+  .perk-em { font-size: 28px; margin-bottom: 10px; }
+  .perk-t  { font-size: 16px; }
+  .perk-d  { font-size: 12.5px; }
 }
 </style>
 </head>
