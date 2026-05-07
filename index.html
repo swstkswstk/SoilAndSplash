@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Soil & Splash Farmhouse — Private Pool Escapes, Kanpur</title>
-<meta name="description" content="Kanpur's most-loved private pool farmhouse. ⭐ 4.9 stars. Exclusive bookings for up to 8 people. May Summer packages starting ₹7,500.">
+<meta name="description" content="Kanpur's most-loved private pool farmhouse. ⭐ 4.9 stars. Exclusive bookings for up to 8 people. May 2026 Summer packages starting ₹7,500.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <style>
@@ -28,67 +28,76 @@
   --night:    #0F1F2E;
   --star:     #8AB4CF;
 
-  /* Layout rhythm — set by JS once on load */
-  --ann-h: 40px;
-  --nav-h: 64px;
+  /* ── CHROME HEIGHTS — single source of truth, CSS-only ──
+     ann-bar is 40px tall, nav is 64px tall.
+     body.padding-top = 104px holds content below both.
+     When ann-bar dismisses, body gets .ann-gone → 64px only. */
+  --ann-h:    40px;
+  --nav-h:    64px;
   --chrome-h: calc(var(--ann-h) + var(--nav-h));
 }
 
 *  { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
   background: var(--cream);
   color: var(--ink);
   overflow-x: hidden;
-  /* Push body down so ann-bar + nav never cover content */
   padding-top: var(--chrome-h);
+  transition: padding-top .38s cubic-bezier(.4,0,.2,1);
+}
+/* Applied by JS on dismiss — body shrinks padding by ann-bar height */
+body.ann-gone {
+  padding-top: var(--nav-h);
 }
 
 /* ─────────────────────────────────────────────────────────
    ANNOUNCEMENT BAR
-   • Always at the very top of the stacking context
-   • Slides away when user scrolls past it; nav locks in place
+   Fixed at top:0, always visible until user clicks ✕.
+   Does NOT hide on scroll — that caused layout jumps.
+   On dismiss: slides up via transform, nav top transitions.
 ───────────────────────────────────────────────────────── */
 #ann-bar {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 200;
-  background: linear-gradient(90deg, #2a1408 0%, #3B2314 40%, #2d1a0a 100%);
-  color: var(--cream);
+  z-index: 300;                       /* highest layer */
+  height: var(--ann-h);               /* 40px */
+  padding: 0 48px 0 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  flex-wrap: wrap;
-  padding: 0 40px;
-  height: var(--ann-h);
+  background: linear-gradient(90deg, #261208 0%, #3B2314 45%, #2a1408 100%);
+  color: var(--cream);
   font-size: 12.5px;
   letter-spacing: .35px;
-  border-bottom: 1px solid rgba(62,201,194,.15);
-  transition: transform .35s cubic-bezier(.4,0,.2,1),
-              opacity   .35s cubic-bezier(.4,0,.2,1);
-  will-change: transform;
+  border-bottom: 1px solid rgba(62,201,194,.18);
+  /* Dismiss animation */
+  transition: transform .38s cubic-bezier(.4,0,.2,1),
+              opacity   .38s cubic-bezier(.4,0,.2,1);
+  will-change: transform, opacity;
 }
-#ann-bar.hidden {
+#ann-bar.gone {
   transform: translateY(-100%);
   opacity: 0;
   pointer-events: none;
 }
 #ann-bar strong { color: var(--pool); }
 
-/* Pulsing dot before text */
+/* Live pulse dot */
 #ann-bar::before {
   content: '';
+  flex-shrink: 0;
   width: 7px; height: 7px;
   border-radius: 50%;
   background: var(--pool);
-  flex-shrink: 0;
-  animation: annPulse 2s ease-in-out infinite;
+  animation: annDot 2.2s ease-in-out infinite;
 }
-@keyframes annPulse {
-  0%,100% { opacity: 1; transform: scale(1); }
-  50%      { opacity: .4; transform: scale(.7); }
+@keyframes annDot {
+  0%,100% { opacity:1; transform:scale(1);   box-shadow:0 0 0 0 rgba(62,201,194,.6);  }
+  50%      { opacity:.5; transform:scale(.7); box-shadow:0 0 0 4px rgba(62,201,194,0); }
 }
 
 .ann-pill {
@@ -102,132 +111,133 @@ body {
   border-radius: 100px;
   flex-shrink: 0;
 }
-.ann-close {
+
+/* Dismiss button — right-aligned absolute */
+#ann-close {
   position: absolute;
-  right: 14px;
+  right: 10px; top: 50%;
+  transform: translateY(-50%);
   background: none;
   border: none;
   cursor: pointer;
-  color: rgba(255,255,255,.4);
-  font-size: 15px;
+  color: rgba(255,255,255,.45);
+  font-size: 14px;
   line-height: 1;
-  padding: 6px;
+  width: 28px; height: 28px;
   border-radius: 6px;
-  transition: color .2s, background .2s;
+  display: flex; align-items: center; justify-content: center;
+  transition: color .18s, background .18s;
 }
-.ann-close:hover { color: #fff; background: rgba(255,255,255,.1); }
+#ann-close:hover { color:#fff; background:rgba(255,255,255,.1); }
 
 /* ─────────────────────────────────────────────────────────
    NAV
-   • Sits directly below ann-bar initially (top = --ann-h)
-   • When ann-bar is hidden, nav slides up to top: 0
+   • top: var(--ann-h) — always sits immediately below ann-bar
+   • On dismiss: gets .ann-gone → top:0 with smooth transition
+   • Gradient bg always-on so logo is legible over any photo
+   • .scrolled → frosted glass once user scrolls
 ───────────────────────────────────────────────────────── */
 #nav {
   position: fixed;
-  top: var(--ann-h);
+  top: var(--ann-h);           /* 40px — snaps under ann-bar */
   left: 0; right: 0;
-  z-index: 199;
-  height: var(--nav-h);
+  z-index: 200;
+  height: var(--nav-h);        /* 64px */
   padding: 0 36px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* Always-on gradient ensures logo/links are legible over any hero image */
+  /* Permanent gradient — guarantees text legibility on hero */
   background: linear-gradient(
-    to bottom,
-    rgba(10, 20, 30, 0.72) 0%,
-    rgba(10, 20, 30, 0.0) 100%
+    180deg,
+    rgba(8, 16, 26, 0.80) 0%,
+    rgba(8, 16, 26, 0.00) 100%
   );
-  transition: top             .35s cubic-bezier(.4,0,.2,1),
-              background      .4s  cubic-bezier(.4,0,.2,1),
-              backdrop-filter .4s,
-              box-shadow      .3s;
+  transition: top        .38s cubic-bezier(.4,0,.2,1),
+              background .35s cubic-bezier(.4,0,.2,1),
+              box-shadow .3s;
 }
-/* When ann-bar is hidden, nav rises to fill top */
-#nav.ann-gone { top: 0; }
-
-/* Scrolled: collapse gradient → solid frosted glass */
+/* ann-bar dismissed → nav rises flush to top */
+#nav.ann-gone {
+  top: 0;
+}
+/* Scrolled → opaque frosted glass */
 #nav.scrolled {
-  background: rgba(18, 14, 10, 0.90);
+  background: rgba(14, 10, 8, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 1px 0 rgba(255,255,255,.06),
-              0 4px 24px rgba(0,0,0,.25);
+              0 4px 28px rgba(0,0,0,.30);
 }
 
 .nav-logo {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 23px;
+  font-size: 22px;
   font-weight: 700;
   color: #fff;
   text-decoration: none;
   letter-spacing: -.3px;
+  text-shadow: 0 1px 10px rgba(0,0,0,.5);
   display: flex;
   align-items: center;
-  gap: 0;
-  /* Subtle drop-shadow keeps text crisp on any bg */
-  text-shadow: 0 1px 8px rgba(0,0,0,.45);
+  gap: 1px;
 }
 .nav-logo span { color: var(--pool); }
-
-/* Nav logo dot accent */
-.nav-logo::after {
-  content: '·';
+.nav-logo em {
+  font-style: normal;
+  font-size: 26px;
   color: var(--pool);
-  margin-left: 5px;
-  font-size: 28px;
-  line-height: 0;
-  vertical-align: middle;
-  opacity: .7;
+  opacity: .6;
+  margin-left: 3px;
+  line-height: 1;
 }
 
 .nav-links {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   align-items: center;
 }
 .nav-links a {
-  color: rgba(255,255,255,.75);
+  color: rgba(255,255,255,.78);
   text-decoration: none;
   font-size: 13.5px;
   font-weight: 500;
-  padding: 6px 10px;
+  padding: 6px 11px;
   border-radius: 8px;
-  transition: color .2s, background .2s;
+  transition: color .18s, background .18s;
   position: relative;
 }
 .nav-links a:not(.nav-cta):hover {
   color: #fff;
-  background: rgba(255,255,255,.08);
+  background: rgba(255,255,255,.09);
 }
-/* Active underline pill on hover */
+/* Underline sweep on hover */
 .nav-links a:not(.nav-cta)::after {
   content: '';
   position: absolute;
-  bottom: 2px; left: 50%; right: 50%;
+  bottom: 3px; left: 50%; right: 50%;
   height: 1.5px;
   background: var(--pool);
   border-radius: 2px;
   transition: left .22s ease, right .22s ease;
 }
-.nav-links a:not(.nav-cta):hover::after { left: 12px; right: 12px; }
+.nav-links a:not(.nav-cta):hover::after { left: 11px; right: 11px; }
 
 .nav-cta {
   background: var(--pool) !important;
   color: var(--ink) !important;
-  padding: 8px 22px;
-  border-radius: 100px;
+  padding: 8px 22px !important;
+  border-radius: 100px !important;
   font-weight: 600 !important;
   font-size: 13.5px !important;
   letter-spacing: .3px;
-  box-shadow: 0 2px 12px rgba(62,201,194,.35);
-  transition: transform .2s, box-shadow .2s, opacity .2s !important;
-  margin-left: 6px;
+  box-shadow: 0 2px 14px rgba(62,201,194,.38);
+  transition: transform .2s, box-shadow .2s !important;
+  margin-left: 8px;
 }
 .nav-cta:hover {
-  opacity: .92 !important;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 18px rgba(62,201,194,.5) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 5px 20px rgba(62,201,194,.55) !important;
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -559,6 +569,71 @@ body {
 }
 .book-btn:hover { opacity: .88; transform: scale(1.01); }
 
+/* ── Timing row (check-in / check-out chips) ── */
+.timing-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.timing-chip-v2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 12px;
+  padding: 10px 14px;
+  flex: 1;
+}
+.tc-icon { font-size: 20px; flex-shrink: 0; }
+.tc-label { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 2px; }
+.tc-val   { font-size: 16px; font-weight: 700; color: #fff; font-family: 'Cormorant Garamond', serif; letter-spacing: -.3px; }
+.tc-arrow { font-size: 18px; color: var(--pool); flex-shrink: 0; opacity: .7; }
+.tc-duration {
+  font-size: 11.5px;
+  color: var(--pool);
+  opacity: .75;
+  margin-bottom: 20px;
+  letter-spacing: .4px;
+}
+
+/* ── Slot toggle (mini package) ── */
+.slot-toggle {
+  display: flex;
+  gap: 6px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 16px;
+}
+.slot-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,.5);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 8px 10px;
+  border-radius: 9px;
+  cursor: pointer;
+  letter-spacing: .3px;
+  transition: background .2s, color .2s;
+}
+.slot-btn.active {
+  background: var(--pool);
+  color: var(--ink);
+  box-shadow: 0 2px 10px rgba(62,201,194,.35);
+}
+.slot-btn:not(.active):hover {
+  background: rgba(255,255,255,.08);
+  color: rgba(255,255,255,.8);
+}
+.slot-panel { transition: opacity .25s ease; }
+.hidden-panel { display: none; }
+
 /* ─────────────────────────────────────────────────────────
    REVIEWS
 ───────────────────────────────────────────────────────── */
@@ -785,9 +860,9 @@ footer a { color: var(--pool); text-decoration: none; }
 
 <!-- ═══ ANNOUNCEMENT BAR ════════════════════════════════ -->
 <div id="ann-bar">
-  <span class="ann-pill">May</span>
-  <span>🌡️ Peak summer is here. <strong>Beat the heat with your own private pool.</strong> Limited May slots — book now!</span>
-  <button class="ann-close" id="ann-close-btn" aria-label="Dismiss">✕</button>
+  <span class="ann-pill">May 2026</span>
+  <span>🌡️ Peak summer is here. <strong>Beat the heat with your own private pool.</strong> Limited slots — book now!</span>
+  <button id="ann-close" aria-label="Dismiss announcement">✕</button>
 </div>
 
 <!-- ═══ NAV ══════════════════════════════════════════════ -->
@@ -911,62 +986,137 @@ footer a { color: var(--pool); text-decoration: none; }
 <!-- ═══ PACKAGES ══════════════════════════════════════════ -->
 <section class="section packages-bg" id="packages">
   <div class="section-inner">
-    <span class="eyebrow reveal">May Summer Specials</span>
+    <span class="eyebrow reveal">May 2026 Summer Specials</span>
     <h2 class="section-h light reveal">Two ways to<br><em>escape the heat.</em></h2>
 
     <div class="packages-grid">
 
-      <!-- MINI -->
-      <div class="pkg reveal reveal-delay-1">
-        <div class="pkg-head">
-          <span class="pkg-badge mini">Mini Package</span>
-          <div class="pkg-name">Summer Heatwave<br>Escape ☀️</div>
-          <div class="pkg-tagline">Poolside Chill Edition</div>
-          <div class="pkg-price">
-            <span class="pkg-price-num">₹7,500</span>
-            <span class="pkg-price-info">Up to<br>8 people</span>
-          </div>
-        </div>
-        <div class="pkg-body">
-          <div class="timing-chip">🕐 1:00 PM – 8:00 PM &nbsp;·&nbsp; 7 Hours</div>
-          <ul class="feat-list">
-            <li><span class="fi">🏊</span><span><strong>Private Pool</strong> — the whole thing, just for you</span></li>
-            <li><span class="fi">❄️</span><span><strong>Large AC Hall</strong> + Chilled Ice Box</span></li>
-            <li><span class="fi">🍧</span><span><strong>Complimentary frozen snacks</strong> to kickstart the fun</span></li>
-            <li><span class="fi">💡</span><span><strong>RGB Pool Lights</strong> &amp; Music System for sunset vibes</span></li>
-          </ul>
-          <div class="quote-box">
-            <strong>💬</strong> "Why share a pool with 100 strangers when you can have the whole farm to yourself?"
-          </div>
-          <a href="https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20the%20Mini%20Package%20at%20Soil%20%26%20Splash%20Farmhouse." class="book-btn" target="_blank">Book Mini Package →</a>
-        </div>
-      </div>
-
-      <!-- FULL DAY-NIGHT -->
-      <div class="pkg star reveal reveal-delay-2">
+      <!-- ── FULL DAY PACKAGE ─────────────────────────── -->
+      <div class="pkg star reveal reveal-delay-1">
         <div class="pkg-head">
           <span class="pkg-badge best">✨ Best Value</span>
-          <div class="pkg-name">May Starlit<br>Stay 🌙</div>
-          <div class="pkg-tagline">Full Day-Night Experience</div>
+          <div class="pkg-name">The May Oasis<br>Package 🏡</div>
+          <div class="pkg-tagline">Full Day &amp; Night Experience 🌊</div>
           <div class="pkg-price">
             <span class="pkg-price-num">₹12,500</span>
             <span class="pkg-price-info">Up to<br>8 people</span>
           </div>
         </div>
         <div class="pkg-body">
-          <div class="timing-chip">🌅 1:00 PM – 10:00 AM next day &nbsp;·&nbsp; 21 Hours</div>
+          <!-- Timing -->
+          <div class="timing-row">
+            <div class="timing-chip-v2">
+              <span class="tc-icon">🌅</span>
+              <div>
+                <div class="tc-label">Check-in</div>
+                <div class="tc-val">1:00 PM</div>
+              </div>
+            </div>
+            <div class="tc-arrow">→</div>
+            <div class="timing-chip-v2">
+              <span class="tc-icon">🌄</span>
+              <div>
+                <div class="tc-label">Check-out</div>
+                <div class="tc-val">10:00 AM</div>
+              </div>
+            </div>
+          </div>
+          <div class="tc-duration">21 hours of exclusive farm life</div>
+
           <ul class="feat-list">
-            <li><span class="fi">🛋️</span><span><strong>Premium Pool Loungers</strong> under the stars</span></li>
-            <li><span class="fi">🍖</span><span><strong>Private BBQ Setup</strong> for the perfect farm feast</span></li>
-            <li><span class="fi">🔥</span><span><strong>Sunken seating</strong> for late-night chats &amp; stories</span></li>
+            <li><span class="fi">🏊</span><span><strong>Private Pool</strong> — all to yourself from noon to morning</span></li>
+            <li><span class="fi">🛋️</span><span><strong>Premium Pool Loungers</strong> under the open stars</span></li>
+            <li><span class="fi">🍖</span><span><strong>Private BBQ Setup</strong> for the perfect farm-night feast</span></li>
+            <li><span class="fi">🔥</span><span><strong>Sunken Seating</strong> for late-night chats &amp; stories</span></li>
             <li><span class="fi">📺</span><span><strong>Smart TV</strong> for poolside movies under open skies</span></li>
             <li><span class="fi">🍧</span><span><strong>Complimentary frozen snacks</strong> to kickstart the party</span></li>
+            <li><span class="fi">❄️</span><span><strong>AC Hall</strong> + Chilled Ice Box all day</span></li>
             <li><span class="fi">⚡</span><span><strong>24/7 Power Backup &amp; Guard</strong> on-site all night</span></li>
           </ul>
           <div class="quote-box">
-            <strong>🌟 The full experience:</strong> Wake up to the farm's morning calm after a perfect night under the stars. Start to finish, farm life at its finest.
+            <strong>🌟</strong> Wake up to the farm's morning calm after a perfect night under the stars. Start to finish — farm life at its finest.
           </div>
-          <a href="https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20the%20Full%20Day-Night%20Package%20at%20Soil%20%26%20Splash%20Farmhouse." class="book-btn" target="_blank">Book Full Stay →</a>
+          <a href="https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20The%20May%20Oasis%20Package%20at%20Soil%20%26%20Splash%20Farmhouse." class="book-btn" target="_blank">Book The May Oasis →</a>
+        </div>
+      </div>
+
+      <!-- ── MINI PACKAGE ─────────────────────────────── -->
+      <div class="pkg reveal reveal-delay-2">
+        <div class="pkg-head">
+          <span class="pkg-badge mini">Mini Package</span>
+          <div class="pkg-name">The May Heatwave<br>Mini-Escape ☀️</div>
+          <div class="pkg-tagline">Poolside Chill Edition 🌊</div>
+          <div class="pkg-price">
+            <span class="pkg-price-num">₹8,000</span>
+            <span class="pkg-price-info">Up to<br>8 people</span>
+          </div>
+        </div>
+        <div class="pkg-body">
+
+          <!-- Slot Toggle -->
+          <div class="slot-toggle">
+            <button class="slot-btn active" data-slot="1">Slot 1 · Day</button>
+            <button class="slot-btn" data-slot="2">Slot 2 · Night</button>
+          </div>
+
+          <!-- Slot 1 -->
+          <div class="slot-panel" id="slot-1">
+            <div class="timing-row">
+              <div class="timing-chip-v2">
+                <span class="tc-icon">🌞</span>
+                <div>
+                  <div class="tc-label">Check-in</div>
+                  <div class="tc-val">12:00 PM</div>
+                </div>
+              </div>
+              <div class="tc-arrow">→</div>
+              <div class="timing-chip-v2">
+                <span class="tc-icon">🌆</span>
+                <div>
+                  <div class="tc-label">Check-out</div>
+                  <div class="tc-val">8:00 PM</div>
+                </div>
+              </div>
+            </div>
+            <div class="tc-duration">8 hours · Afternoon &amp; Sunset</div>
+          </div>
+
+          <!-- Slot 2 -->
+          <div class="slot-panel hidden-panel" id="slot-2">
+            <div class="timing-row">
+              <div class="timing-chip-v2">
+                <span class="tc-icon">🌙</span>
+                <div>
+                  <div class="tc-label">Check-in</div>
+                  <div class="tc-val">10:00 PM</div>
+                </div>
+              </div>
+              <div class="tc-arrow">→</div>
+              <div class="timing-chip-v2">
+                <span class="tc-icon">🌅</span>
+                <div>
+                  <div class="tc-label">Check-out</div>
+                  <div class="tc-val">9:00 AM</div>
+                </div>
+              </div>
+            </div>
+            <div class="tc-duration">11 hours · Night &amp; Early Morning</div>
+          </div>
+
+          <ul class="feat-list" style="margin-top:20px">
+            <li><span class="fi">🏊</span><span><strong>Private Pool</strong> — the whole thing, just for your group</span></li>
+            <li><span class="fi">❄️</span><span><strong>Large AC Hall</strong> + Chilled Ice Box</span></li>
+            <li><span class="fi">🍧</span><span><strong>Complimentary frozen snacks</strong> to kickstart the fun</span></li>
+            <li><span class="fi">💡</span><span><strong>RGB Pool Lights</strong> &amp; Music System</span></li>
+          </ul>
+          <div class="quote-box">
+            <strong>💬</strong> "Why share a pool with 100 strangers when you can have the whole farm to yourself?"
+          </div>
+
+          <!-- Dynamic book link -->
+          <a id="mini-book-btn"
+             href="https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20The%20May%20Heatwave%20Mini-Escape%20(Slot%201%3A%2012PM-8PM)%20at%20Soil%20%26%20Splash%20Farmhouse."
+             class="book-btn" target="_blank">Book Slot 1 (Day) →</a>
         </div>
       </div>
 
@@ -1141,7 +1291,7 @@ footer a { color: var(--pool); text-decoration: none; }
 <!-- ═══ BOOKING CTA ════════════════════════════════════════ -->
 <section class="cta-section" id="book">
   <div class="cta-card reveal">
-    <span class="cta-eyebrow">Limited May Slots</span>
+    <span class="cta-eyebrow">Limited May 2026 Slots</span>
     <h2 class="cta-h">Ready to<br><em>escape?</em></h2>
     <p class="cta-p">WhatsApp us to check availability and lock in your date. May slots fill up fast — don't miss out.</p>
     <div class="cta-buttons">
@@ -1164,96 +1314,96 @@ footer a { color: var(--pool); text-decoration: none; }
 </footer>
 
 <script>
-/* ─────────────────────────────────────────────────────────
-   LAYOUT ENGINE
-   Reads actual rendered heights of ann-bar + nav and writes
-   them as CSS custom properties so everything stays in sync
-   without hard-coded magic numbers.
-───────────────────────────────────────────────────────── */
-const annBar   = document.getElementById('ann-bar');
-const nav      = document.getElementById('nav');
-const root     = document.documentElement;
-const closeBtn = document.getElementById('ann-close-btn');
+/* ═══════════════════════════════════════════════════════════
+   ANN-BAR + NAV — Harmonious coexistence
+   ─────────────────────────────────────────────────────────
+   Strategy: CSS does ALL layout math via fixed --ann-h / --nav-h vars.
+   JS only handles TWO concerns:
+     1. Dismiss on ✕ click  →  add .gone to ann-bar, .ann-gone to nav,
+                                body.ann-gone shrinks padding-top to --nav-h
+     2. Scroll detection    →  add .scrolled to nav for frosted glass
+   No height measurement, no setProperty, no layout thrash.
+═══════════════════════════════════════════════════════════ */
+(function () {
+  const annBar  = document.getElementById('ann-bar');
+  const nav     = document.getElementById('nav');
+  const closeBtn= document.getElementById('ann-close');
+  const body    = document.body;
+  const SK      = 'ann-v2-gone';   /* sessionStorage key */
 
-function syncHeights() {
-  const annH = annBar.classList.contains('hidden') ? 0 : annBar.offsetHeight;
-  const navH = nav.offsetHeight;
-  root.style.setProperty('--ann-h', annH + 'px');
-  root.style.setProperty('--nav-h', navH + 'px');
-  root.style.setProperty('--chrome-h', (annH + navH) + 'px');
-  // Recompute body padding too
-  document.body.style.paddingTop = (annH + navH) + 'px';
-}
-
-// Initial measure (after fonts load)
-window.addEventListener('load', syncHeights);
-window.addEventListener('resize', syncHeights);
-
-/* ─────────────────────────────────────────────────────────
-   CLOSE BUTTON — manually dismiss ann-bar
-───────────────────────────────────────────────────────── */
-closeBtn.addEventListener('click', () => {
-  annBar.classList.add('hidden');
-  nav.classList.add('ann-gone');
-  syncHeights();
-  try { sessionStorage.setItem('ann-dismissed', '1'); } catch(e) {}
-});
-
-// Restore dismissed state across page loads
-try {
-  if (sessionStorage.getItem('ann-dismissed') === '1') {
-    annBar.classList.add('hidden');
+  /* ── Restore dismiss state on page load ── */
+  if (sessionStorage.getItem(SK)) {
+    annBar.classList.add('gone');
     nav.classList.add('ann-gone');
+    body.classList.add('ann-gone');
   }
-} catch(e) {}
 
-/* ─────────────────────────────────────────────────────────
-   SCROLL BEHAVIOUR
-   • ann-bar hides itself once user scrolls past its height
-   • nav gets frost glass once user scrolls at all
-   • nav.top adjusts in sync with ann-bar visibility
-───────────────────────────────────────────────────────── */
-let lastAnnVisible = true;
-
-window.addEventListener('scroll', () => {
-  const scrollY    = window.scrollY;
-  const annHeight  = annBar.offsetHeight;
-  const annVisible = scrollY < annHeight;
-
-  // Toggle frosted nav
-  nav.classList.toggle('scrolled', scrollY > 4);
-
-  // Hide ann-bar on scroll past it
-  if (!annVisible && lastAnnVisible) {
-    annBar.classList.add('hidden');
+  /* ── Dismiss on ✕ click ── */
+  closeBtn.addEventListener('click', () => {
+    annBar.classList.add('gone');
     nav.classList.add('ann-gone');
-    syncHeights();
-  } else if (annVisible && !lastAnnVisible && !sessionStorage.getItem('ann-dismissed')) {
-    annBar.classList.remove('hidden');
-    nav.classList.remove('ann-gone');
-    syncHeights();
-  }
-  lastAnnVisible = annVisible;
-}, { passive: true });
-
-/* ─────────────────────────────────────────────────────────
-   SCROLL REVEAL
-───────────────────────────────────────────────────────── */
-const reveals = document.querySelectorAll('.reveal');
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      io.unobserve(entry.target);
-    }
+    body.classList.add('ann-gone');
+    try { sessionStorage.setItem(SK, '1'); } catch (e) {}
   });
-}, { threshold: 0.1 });
-reveals.forEach(el => io.observe(el));
 
-/* ─────────────────────────────────────────────────────────
-   INITIAL HEIGHT SYNC (before load event, best-effort)
-───────────────────────────────────────────────────────── */
-syncHeights();
+  /* ── Nav frosted glass on scroll ── */
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        nav.classList.toggle('scrolled', window.scrollY > 8);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   MINI PACKAGE — SLOT TOGGLE
+═══════════════════════════════════════════════════════════ */
+(function () {
+  const btns     = document.querySelectorAll('.slot-btn');
+  const panel1   = document.getElementById('slot-1');
+  const panel2   = document.getElementById('slot-2');
+  const bookBtn  = document.getElementById('mini-book-btn');
+
+  const wa = {
+    1: 'https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20The%20May%20Heatwave%20Mini-Escape%20(Slot%201%3A%2012PM-8PM)%20at%20Soil%20%26%20Splash%20Farmhouse.',
+    2: 'https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20The%20May%20Heatwave%20Mini-Escape%20(Slot%202%3A%2010PM-9AM)%20at%20Soil%20%26%20Splash%20Farmhouse.',
+  };
+  const labels = { 1: 'Book Slot 1 — Day →', 2: 'Book Slot 2 — Night →' };
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const slot = parseInt(btn.dataset.slot);
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      if (slot === 1) {
+        panel1.classList.remove('hidden-panel');
+        panel2.classList.add('hidden-panel');
+      } else {
+        panel2.classList.remove('hidden-panel');
+        panel1.classList.add('hidden-panel');
+      }
+      bookBtn.href  = wa[slot];
+      bookBtn.textContent = labels[slot];
+    });
+  });
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════════════════════ */
+(function () {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+})();
 </script>
 </body>
 </html>
