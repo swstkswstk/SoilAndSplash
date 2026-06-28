@@ -3,10 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
 <title>Soil & Splash Farmhouse — Private Pool Escapes, Kanpur</title>
 <meta name="description" content="Kanpur's most-loved private pool farmhouse. ⭐ 4.9 stars. Exclusive bookings for up to 8 people. June 2026 Summer packages starting ₹7,500.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<script>
+(function () {
+  try {
+    const stored = localStorage.getItem('soil-theme');
+    const system = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    const theme = stored || system;
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
+  } catch (e) {}
+})();
+</script>
 <style>
 /* ─────────────────────────────────────────────────────────
    TOKENS
@@ -48,6 +60,66 @@ body {
   padding-top: var(--chrome-h);
   transition: padding-top .38s cubic-bezier(.4,0,.2,1);
 }
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: 8px;
+  z-index: 1000;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: var(--pool);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  transform: translateY(-140%);
+  transition: transform .2s ease;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.08);
+  color: #fff;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: .25px;
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease, border-color .2s ease;
+}
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.14);
+  border-color: rgba(255,255,255,.24);
+}
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--pool);
+  outline-offset: 2px;
+}
+.theme-icon {
+  width: 16px;
+  text-align: center;
+  font-size: 14px;
+}
+.theme-label {
+  white-space: nowrap;
+}
+
 /* Applied by JS on dismiss — body shrinks padding by ann-bar height */
 body.ann-gone {
   padding-top: var(--nav-h);
@@ -288,6 +360,10 @@ body.ann-gone {
   animation: fadeUp .8s ease both;
   box-shadow: 0 2px 16px rgba(0,0,0,.2);
 }
+.hero-rating-badge a {
+  color: inherit;
+  text-decoration: none;
+}
 .stars      { color: var(--gold); font-size: 13px; letter-spacing: 2px; }
 .rating-text{ color: rgba(255,255,255,.9); font-size: 12.5px; font-weight: 500; }
 
@@ -429,6 +505,7 @@ body.ann-gone {
 ───────────────────────────────────────────────────────── */
 .section       { padding: 88px 40px; }
 .section-inner { max-width: 1100px; margin: 0 auto; }
+.why-section   { background: #fff; }
 .eyebrow {
   font-family: 'Caveat', cursive;
   font-size: 22px; color: var(--pool);
@@ -831,6 +908,91 @@ footer a { color: var(--pool); text-decoration: none; }
 .reveal-delay-3   { transition-delay: .3s; }
 .reveal-delay-4   { transition-delay: .4s; }
 
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+html[data-theme="dark"] body {
+  background: #0b1117;
+  color: #ede6dc;
+}
+html[data-theme="dark"] #nav {
+  background: linear-gradient(180deg, rgba(6, 10, 16, 0.88) 0%, rgba(6, 10, 16, 0.00) 100%);
+}
+html[data-theme="dark"] #nav.scrolled {
+  background: rgba(9, 12, 18, 0.94);
+  box-shadow: 0 1px 0 rgba(255,255,255,.05),
+              0 4px 28px rgba(0,0,0,.38);
+}
+html[data-theme="dark"] .theme-toggle {
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.10);
+}
+html[data-theme="dark"] .photo-section,
+html[data-theme="dark"] .amenities-bg {
+  background: #0f151c;
+}
+html[data-theme="dark"] .why-section {
+  background: #121821 !important;
+}
+html[data-theme="dark"] .reviews-section,
+html[data-theme="dark"] .vibes-section,
+html[data-theme="dark"] .cta-section {
+  background: #0d131a;
+}
+html[data-theme="dark"] .section-h,
+html[data-theme="dark"] .perk-t,
+html[data-theme="dark"] .rev-name,
+html[data-theme="dark"] .am-l {
+  color: #f4ede1;
+}
+html[data-theme="dark"] .section-h em {
+  color: var(--pool);
+}
+html[data-theme="dark"] .perk,
+html[data-theme="dark"] .review-card,
+html[data-theme="dark"] .am {
+  background: #121923;
+  border-color: rgba(255,255,255,.08);
+}
+html[data-theme="dark"] .perk-d,
+html[data-theme="dark"] .rev-text,
+html[data-theme="dark"] .rating-count,
+html[data-theme="dark"] .loc-sub,
+html[data-theme="dark"] .cta-p {
+  color: rgba(240,236,228,.72);
+}
+html[data-theme="dark"] .reviews-section .review-hero {
+  background: linear-gradient(135deg, #1f2732, #11161d);
+}
+html[data-theme="dark"] .amenities-bg .section-h,
+html[data-theme="dark"] .reviews-section .section-h,
+html[data-theme="dark"] .vibes-section .section-h {
+  color: #f6f0e8;
+}
+html[data-theme="dark"] footer {
+  background: #07090d;
+}
+@media (max-width: 900px) {
+  .nav-actions {
+    gap: 8px;
+  }
+  .theme-toggle {
+    padding: 7px 11px;
+    font-size: 12px;
+  }
+}
+
 /* ─────────────────────────────────────────────────────────
    RESPONSIVE
 ───────────────────────────────────────────────────────── */
@@ -883,8 +1045,16 @@ footer a { color: var(--pool); text-decoration: none; }
   .perk-d  { font-size: 12.5px; }
 }
 </style>
+<noscript>
+  <style>
+    .reveal { opacity: 1 !important; transform: none !important; }
+  </style>
+</noscript>
 </head>
 <body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<main id="main">
 
 <!-- ═══ ANNOUNCEMENT BAR ════════════════════════════════ -->
 <div id="ann-bar">
@@ -896,11 +1066,17 @@ footer a { color: var(--pool); text-decoration: none; }
 <!-- ═══ NAV ══════════════════════════════════════════════ -->
 <nav id="nav">
   <a href="#" class="nav-logo">Soil <span>&</span> Splash</a>
-  <div class="nav-links">
-    <a href="#packages">Packages</a>
-    <a href="#reviews">Reviews</a>
-    <a href="#location">Location</a>
-    <a href="https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20Soil%20%26%20Splash%20Farmhouse." class="nav-cta">Book Now</a>
+  <div class="nav-actions">
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme" aria-pressed="false">
+      <span class="theme-icon" aria-hidden="true">🌙</span>
+      <span class="theme-label">Dark</span>
+    </button>
+    <div class="nav-links">
+      <a href="#packages">Packages</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#location">Location</a>
+      <a href="https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20Soil%20%26%20Splash%20Farmhouse." class="nav-cta" rel="noopener noreferrer">Book Now</a>
+    </div>
   </div>
 </nav>
 
@@ -910,10 +1086,10 @@ footer a { color: var(--pool); text-decoration: none; }
   <div class="hero-bg-overlay"></div>
 
   <div class="hero-inner">
-    <div class="hero-rating-badge">
+    <a class="hero-rating-badge" href="https://share.google/XDQJoerdfAIQc6LJW" target="_blank" rel="noopener noreferrer" aria-label="View Soil and Splash Farmhouse on Google Business Profile">
       <span class="stars">★★★★★</span>
       <span class="rating-text"><strong>4.9</strong> on Google · 45 reviews</span>
-    </div>
+    </a>
     <h1 class="hero-title">
       Soil <span class="amp">&amp;</span> Splash
       <span class="sub">Farmhouse, Kanpur</span>
@@ -925,7 +1101,7 @@ footer a { color: var(--pool); text-decoration: none; }
     </p>
     <div class="hero-actions">
       <a href="#packages" class="btn btn-primary">☀️ View June Packages</a>
-      <a href="https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20Soil%20%26%20Splash%20Farmhouse." class="btn btn-ghost" target="_blank">WhatsApp Us →</a>
+      <a href="https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20Soil%20%26%20Splash%20Farmhouse." class="btn btn-ghost" target="_blank" rel="noopener noreferrer">WhatsApp Us →</a>
     </div>
   </div>
 
@@ -947,7 +1123,7 @@ footer a { color: var(--pool); text-decoration: none; }
       <div class="photo-label">🌿 The Farmhouse</div>
     </div>
     <div class="photo-cell">
-      <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAFVr6ENZcdeOU57z3rAMlAfo49AC5Nn_f0ORKIoh1OxDRCUGUh4EMKqDA9lAKr2UwPYOT-d2kq-aQzLWl-3q7JtNKyPYP52FWTjxZQ9tCDMOp2TM-3p-MdDyBNFS1alEbRoW6scAmchla0T=s770-k-no" alt="Poolside evening vibes" loading="lazy">
+      <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAERnrG9Y8nBKlH3H2D8TywY-57-c5rDFO2crMojenPvVAlAElMgvw8FMD9KGhCoAUDRxK1thXGxnBk0SKKoPRj7gQOITETC-ReBg4AousyA_Iwv06WdeM8HS_RuR8JrA2Po14YWHUQMXJss=s1360-w1360-h1020" alt="Poolside evening vibes" loading="lazy">
       <div class="photo-label">🌙 Night Vibes</div>
     </div>
     <div class="photo-cell">
@@ -971,7 +1147,7 @@ footer a { color: var(--pool); text-decoration: none; }
 </div>
 
 <!-- ═══ WHY US ════════════════════════════════════════════ -->
-<section class="section" style="background:#fff">
+<section class="section why-section">
   <div class="section-inner">
     <span class="eyebrow reveal">Why Soil &amp; Splash?</span>
     <h2 class="section-h reveal">Your private slice of<br><em>nature &amp; calm.</em></h2>
@@ -1064,7 +1240,7 @@ footer a { color: var(--pool); text-decoration: none; }
           <div class="quote-box">
             <strong>🌟</strong> Wake up to the farm's morning calm after a perfect night under the stars. Start to finish — farm life at its finest.
           </div>
-          <a href="https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20The%20June%20Oasis%20Package%20at%20Soil%20%26%20Splash%20Farmhouse." class="book-btn" target="_blank">Book The June Oasis →</a>
+          <a href="https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20The%20June%20Oasis%20Package%20at%20Soil%20%26%20Splash%20Farmhouse." class="book-btn" target="_blank" rel="noopener noreferrer">Book The June Oasis →</a>
         </div>
       </div>
 
@@ -1144,7 +1320,7 @@ footer a { color: var(--pool); text-decoration: none; }
           <!-- Dynamic book link -->
           <a id="mini-book-btn"
              href="https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20The%20June%20Heatwave%20Mini-Escape%20(Slot%201%3A%2012PM-8PM)%20at%20Soil%20%26%20Splash%20Farmhouse."
-             class="book-btn" target="_blank">Book Slot 1 (Day) →</a>
+             class="book-btn" target="_blank" rel="noopener noreferrer">Book Slot 1 (Day) →</a>
         </div>
       </div>
 
@@ -1167,6 +1343,7 @@ footer a { color: var(--pool); text-decoration: none; }
       <div class="rating-label">
         "If calm had an address, it would be Soil &amp; Splash Farmhouse."
       </div>
+      <a href="https://share.google/XDQJoerdfAIQc6LJW" class="map-btn" style="margin-left:auto" target="_blank" rel="noopener noreferrer">View Google Profile</a>
     </div>
 
     <div class="reviews-grid">
@@ -1244,7 +1421,7 @@ footer a { color: var(--pool); text-decoration: none; }
         </div>
       </div>
       <div class="vibe sunset reveal reveal-delay-2">
-        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGMUyx3d_UVpFih7PT0BIhuGS9i--TT9nbTCyLNI3EZGOMGL5bM4n4WfjNSUYBjhLNNvACJ3LzT44cxHv3c7vEkLeeVT37nYuorlGXWPZsTFdnptnCL70LbLsYWiLdi4WM0yn284XRjCjrH=s1016-k-no" alt="Sunset poolside vibes" loading="lazy">
+        <img src="https://lh3.googleusercontent.com/gpms-cs-s/ABJJf50J_wuORe8EloVo6FYa7vL_GAXg6eTRqCEyZis-BprEMrC3EW_dsFirzIiZd0BsewMULLsmGuB69MH9Wxt9SyGIKyIivLW59-UFy6rkFIxMDjvaaENWE7_vv6E5m7ZwpKDs8EAujeOOKWHo=s2048-v1" alt="Sunset poolside vibes" loading="lazy">
         <div class="vibe-overlay">
           <span class="vibe-emoji">🌅</span>
           <div class="vibe-when">Evening · 6 PM</div>
@@ -1311,7 +1488,7 @@ footer a { color: var(--pool); text-decoration: none; }
     </div>
   </div>
 
-  <a href="https://maps.app.goo.gl/HhpDbTPZe3hY2vyJ9" class="map-btn reveal" target="_blank">
+  <a href="https://maps.app.goo.gl/HhpDbTPZe3hY2vyJ9" class="map-btn reveal" target="_blank" rel="noopener noreferrer">
     📍 Open in Google Maps
   </a>
 </section>
@@ -1323,7 +1500,7 @@ footer a { color: var(--pool); text-decoration: none; }
     <h2 class="cta-h">Ready to<br><em>escape?</em></h2>
     <p class="cta-p">WhatsApp us to check availability and lock in your date. June slots fill up fast — don't miss out.</p>
     <div class="cta-buttons">
-      <a href="https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20Soil%20%26%20Splash%20Farmhouse.%20Please%20share%20June%202026%20availability." class="wa-btn" target="_blank">
+      <a href="https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20Soil%20%26%20Splash%20Farmhouse.%20Please%20share%20June%202026%20availability." class="wa-btn" target="_blank" rel="noopener noreferrer">
         <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         Book on WhatsApp
       </a>
@@ -1338,8 +1515,10 @@ footer a { color: var(--pool); text-decoration: none; }
   <div class="foot-logo">Soil &amp; <span>Splash</span></div>
   <p>Chobepur, Choubepur Kalan, Uttar Pradesh 209203</p>
   <p>📞 <a href="tel:+916389332211">+91 63893 32211</a> &nbsp;·&nbsp; Open 24 Hours, 7 Days</p>
+  <p>📸 <a href="https://www.instagram.com/soilandsplash/" target="_blank" rel="noopener noreferrer">Instagram: @soilandsplash</a></p>
   <p style="margin-top:12px;font-size:12px;opacity:.35">© 2026 Soil &amp; Splash Farmhouse. All rights reserved.</p>
 </footer>
+</main>
 
 <script>
 /* ═══════════════════════════════════════════════════════════
@@ -1385,6 +1564,33 @@ footer a { color: var(--pool); text-decoration: none; }
       ticking = true;
     }
   }, { passive: true });
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   THEME TOGGLE
+═══════════════════════════════════════════════════════════ */
+(function () {
+  const root = document.documentElement;
+  const btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+
+  const icon = btn.querySelector('.theme-icon');
+  const label = btn.querySelector('.theme-label');
+
+  function applyTheme(theme) {
+    root.dataset.theme = theme;
+    root.style.colorScheme = theme;
+    btn.setAttribute('aria-pressed', String(theme === 'dark'));
+    icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    label.textContent = theme === 'dark' ? 'Light' : 'Dark';
+    try { localStorage.setItem('soil-theme', theme); } catch (e) {}
+  }
+
+  btn.addEventListener('click', () => {
+    applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
+  });
+
+  applyTheme(root.dataset.theme || 'light');
 })();
 
 /* ═══════════════════════════════════════════════════════════
