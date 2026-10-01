@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light dark">
 <title>Soil & Splash Farmhouse — Private Pool Escapes, Kanpur</title>
-<meta name="description" content="Kanpur's most-loved private pool farmhouse. ⭐ 4.8 stars. Exclusive bookings for up to 8 people. September 2026 packages starting ₹7,000.">
+<meta name="description" content="Kanpur's most-loved private pool farmhouse. ⭐ 4.8 stars. Exclusive bookings for up to 8 people. October 2026 packages starting ₹7,000. Crisp autumn breezes, private pool, and starlit farm nights.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <script>
@@ -501,6 +501,140 @@ body.ann-gone {
 .trust-item strong { color: var(--pool); }
 
 /* ─────────────────────────────────────────────────────────
+   OCTOBER WEATHER & SEASON VIBES
+───────────────────────────────────────────────────────── */
+.oct-weather-section {
+  padding: 0 40px 48px;
+  background: var(--night);
+}
+.oct-weather-card {
+  background: linear-gradient(135deg, rgba(233,168,37,.08) 0%, rgba(62,201,194,.04) 50%, rgba(255,255,255,.02) 100%);
+  border: 1px solid rgba(233,168,37,.22);
+  border-radius: 24px;
+  padding: 36px 36px 32px;
+  box-shadow: 0 16px 44px rgba(0,0,0,.25);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+}
+.oct-weather-card::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -40px;
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(233,168,37,.18) 0%, rgba(233,168,37,0) 70%);
+  pointer-events: none;
+}
+.oct-weather-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.oct-weather-title-wrap {
+  flex: 1;
+  min-width: 280px;
+}
+.oct-season-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(233,168,37,.12);
+  border: 1px solid rgba(233,168,37,.28);
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-bottom: 12px;
+}
+.oct-weather-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(24px, 3.5vw, 36px);
+  color: #fff;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.oct-weather-sub {
+  font-size: 14px;
+  color: rgba(255,255,255,.75);
+  line-height: 1.6;
+  max-width: 680px;
+}
+.oct-temp-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(62,201,194,.1);
+  border: 1px solid rgba(62,201,194,.28);
+  border-radius: 18px;
+  padding: 14px 20px;
+  flex-shrink: 0;
+}
+.oct-temp-icon {
+  font-size: 32px;
+  line-height: 1;
+}
+.oct-temp-info {
+  display: flex;
+  flex-direction: column;
+}
+.oct-temp-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--pool);
+  line-height: 1.1;
+}
+.oct-temp-lbl {
+  font-size: 11.5px;
+  color: rgba(255,255,255,.7);
+  font-weight: 500;
+}
+.oct-vibe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+}
+.oct-vibe-pill {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  padding: 16px 18px;
+  transition: transform .25s ease, background .25s ease, border-color .25s ease;
+}
+.oct-vibe-pill:hover {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,.08);
+  border-color: rgba(233,168,37,.35);
+}
+.oct-vp-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.oct-vibe-pill strong {
+  display: block;
+  font-size: 13.5px;
+  color: #fff;
+  margin-bottom: 3px;
+}
+.oct-vibe-pill span {
+  display: block;
+  font-size: 12px;
+  color: rgba(255,255,255,.65);
+  line-height: 1.5;
+}
+
+/* ─────────────────────────────────────────────────────────
    SECTION COMMONS
 ───────────────────────────────────────────────────────── */
 .section       { padding: 88px 40px; }
@@ -939,8 +1073,17 @@ html[data-theme="dark"] .theme-toggle {
   border-color: rgba(255,255,255,.10);
 }
 html[data-theme="dark"] .photo-section,
-html[data-theme="dark"] .amenities-bg {
+html[data-theme="dark"] .amenities-bg,
+html[data-theme="dark"] .oct-weather-section {
   background: #0f151c;
+}
+html[data-theme="dark"] .oct-weather-card {
+  background: linear-gradient(135deg, rgba(233,168,37,.06) 0%, rgba(62,201,194,.03) 50%, rgba(255,255,255,.01) 100%);
+  border-color: rgba(233,168,37,.20);
+}
+html[data-theme="dark"] .oct-vibe-pill {
+  background: rgba(255,255,255,.03);
+  border-color: rgba(255,255,255,.06);
 }
 html[data-theme="dark"] .why-section {
   background: #121821 !important;
@@ -1004,6 +1147,8 @@ html[data-theme="dark"] footer {
   .photo-cell.tall { grid-row: span 1; }
   .vibes-grid   { grid-template-columns: 1fr; }
   .section      { padding: 56px 20px; }
+  .oct-weather-section { padding: 0 20px 40px; }
+  .oct-weather-card { padding: 26px 22px; }
   .trust-bar    { padding: 12px 16px; }
   .trust-item   { padding: 5px 14px; font-size: 12.5px; }
   .review-hero  { padding: 28px 24px; }
@@ -1016,6 +1161,8 @@ html[data-theme="dark"] footer {
   .pkg-head, .pkg-body { padding-left: 20px; padding-right: 20px; }
   .loc-details  { gap: 24px; }
   #ann-bar      { font-size: 11.5px; gap: 6px; padding: 0 36px 0 12px; }
+  .oct-temp-badge { width: 100%; justify-content: flex-start; }
+  .oct-vibe-grid { grid-template-columns: 1fr; }
 
   /* Trust bar: hide dividers between items when stacking to 2-col grid */
   .trust-bar {
@@ -1058,8 +1205,8 @@ html[data-theme="dark"] footer {
 
 <!-- ═══ ANNOUNCEMENT BAR ════════════════════════════════ -->
 <div id="ann-bar">
-  <span class="ann-pill">September 2026</span>
-  <span>🍂 September serenity is here. <strong>Book a peaceful private farmhouse escape with cozy comforts.</strong> Limited September slots — reserve yours now!</span>
+  <span class="ann-pill">October 2026</span>
+  <span>🍁 October autumn breeze is here! <strong>Experience crisp sunny pool days, golden sunsets &amp; cozy starlit BBQ nights.</strong> Limited October slots — reserve yours now!</span>
   <button id="ann-close" aria-label="Dismiss announcement">✕</button>
 </div>
 
@@ -1100,7 +1247,7 @@ html[data-theme="dark"] footer {
       One group. One farm. Yours entirely.
     </p>
     <div class="hero-actions">
-      <a href="#packages" class="btn btn-primary">🍂 View September Packages</a>
+      <a href="#packages" class="btn btn-primary">🍁 View October Packages</a>
       <a href="https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20Soil%20%26%20Splash%20Farmhouse." class="btn btn-ghost" target="_blank" rel="noopener noreferrer">WhatsApp Us →</a>
     </div>
   </div>
@@ -1146,6 +1293,59 @@ html[data-theme="dark"] footer {
   <div class="trust-item"><span class="trust-icon">🌿</span> <strong>Open</strong> 24 Hours</div>
 </div>
 
+<!-- ═══ OCTOBER SEASON & WEATHER VIBES ════════════════════ -->
+<section class="oct-weather-section">
+  <div class="section-inner">
+    <div class="oct-weather-card reveal">
+      <div class="oct-weather-head">
+        <div class="oct-weather-title-wrap">
+          <span class="oct-season-pill">🍂 October Weather &amp; Vibes · Choubepur, Kanpur</span>
+          <h3 class="oct-weather-heading">The Best Time of the Year to Escape to the Farm</h3>
+          <p class="oct-weather-sub">October brings Kanpur's sweetest season — post-monsoon lush greenery, gentle sun for afternoon pool dips, and crisp starry nights made for barbecue &amp; bonfire chats.</p>
+        </div>
+        <div class="oct-temp-badge">
+          <span class="oct-temp-icon">🌤️</span>
+          <div class="oct-temp-info">
+            <span class="oct-temp-val">20°C — 31°C</span>
+            <span class="oct-temp-lbl">Pleasant Autumn Weather</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="oct-vibe-grid">
+        <div class="oct-vibe-pill">
+          <span class="oct-vp-icon">☀️</span>
+          <div>
+            <strong>Mild Sunny Days (28°C–31°C)</strong>
+            <span>Crystal blue private pool swims without peak summer heat or humidity.</span>
+          </div>
+        </div>
+        <div class="oct-vibe-pill">
+          <span class="oct-vp-icon">🌾</span>
+          <div>
+            <strong>Post-Monsoon Farm Greenery</strong>
+            <span>Crisp, clean air and lush green natural surroundings away from city dust.</span>
+          </div>
+        </div>
+        <div class="oct-vibe-pill">
+          <span class="oct-vp-icon">✨</span>
+          <div>
+            <strong>Starry Autumn Nights (20°C–22°C)</strong>
+            <span>Breezy open skies, sunken lounge seating, outdoor cinema &amp; live BBQ.</span>
+          </div>
+        </div>
+        <div class="oct-vibe-pill">
+          <span class="oct-vp-icon">☕</span>
+          <div>
+            <strong>Warm High-Tea &amp; Hot Snacks</strong>
+            <span>Complimentary steaming masala chai, coffee &amp; freshly prepared seasonal snacks.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ WHY US ════════════════════════════════════════════ -->
 <section class="section why-section">
   <div class="section-inner">
@@ -1174,9 +1374,9 @@ html[data-theme="dark"] footer {
         <p class="perk-d">Premium loungers under open skies, sunken seating for late chats, Smart TV poolside, private BBQ.</p>
       </div>
       <div class="perk reveal reveal-delay-1">
-        <span class="perk-em">❄️</span>
-        <div class="perk-t">Beat the Summer Heat</div>
-        <p class="perk-d">Large AC hall, chilled ice box, and complimentary frozen snacks — cool the moment you arrive.</p>
+        <span class="perk-em">🍂</span>
+        <div class="perk-t">Crisp Autumn Comforts</div>
+        <p class="perk-d">Mild sunny pool dips, cool evening breeze under starry skies, AC hall, and complimentary warm high-tea &amp; hot snacks.</p>
       </div>
       <div class="perk reveal reveal-delay-2">
         <span class="perk-em">🔒</span>
@@ -1190,17 +1390,17 @@ html[data-theme="dark"] footer {
 <!-- ═══ PACKAGES ══════════════════════════════════════════ -->
 <section class="section packages-bg" id="packages">
   <div class="section-inner">
-    <span class="eyebrow reveal">September 2026 Specials</span>
-    <h2 class="section-h light reveal">Two ways to<br><em>find your serenity.</em></h2>
+    <span class="eyebrow reveal">October 2026 Specials</span>
+    <h2 class="section-h light reveal">Two ways to<br><em>find your autumn serenity.</em></h2>
 
     <div class="packages-grid">
 
       <!-- ── FULL DAY PACKAGE ─────────────────────────── -->
       <div class="pkg star reveal reveal-delay-1">
         <div class="pkg-head">
-          <span class="pkg-badge best">🌧️ Best for Groups</span>
-          <div class="pkg-name">🌴 September Serenity<br>&amp; Melodies Full Day Package 🌿</div>
-          <div class="pkg-tagline">Cozy vibes, music, and peaceful post-monsoon weather</div>
+          <span class="pkg-badge best">🍁 Best for Groups &amp; Gatherings</span>
+          <div class="pkg-name">🌾 October Autumn Bliss<br>&amp; Melodies Full Day Package 🌿</div>
+          <div class="pkg-tagline">Crisp breeze, golden hour swims, starlit cinema &amp; cozy BBQ evenings</div>
           <div class="pkg-price">
             <span class="pkg-price-num">₹10,000</span>
             <span class="pkg-price-info">Up to<br>8 people</span>
@@ -1224,21 +1424,21 @@ html[data-theme="dark"] footer {
               </div>
             </div>
           </div>
-          <div class="tc-duration">21 hours of cozy September charm</div>
+          <div class="tc-duration">21 hours of cozy October charm</div>
 
           <ul class="feat-list">
             <li><span class="fi">🎬</span><span><strong>Indoor-Outdoor Cinema</strong> with an outdoor smart TV and upgraded indoor lounge for uninterrupted movie marathons</span></li>
-            <li><span class="fi">☕</span><span><strong>September High-Tea</strong> with complimentary hot beverages and hot, crispy seasonal snacks</span></li>
-            <li><span class="fi">🌙</span><span><strong>Sunken Lounge Nights</strong> with a kids pool by day and breezy late-night BBQ sessions by night</span></li>
-            <li><span class="fi">❄️</span><span><strong>Full AC comfort</strong> with continuous bedroom cooling for a sound, humidity-free sleep</span></li>
+            <li><span class="fi">☕</span><span><strong>October High-Tea</strong> with complimentary hot beverages and fresh, crispy seasonal snacks</span></li>
+            <li><span class="fi">🌙</span><span><strong>Starlit Sunken Lounge</strong> with private pool dips by day, cozy outdoor BBQ &amp; ambient lighting under clear autumn skies</span></li>
+            <li><span class="fi">❄️</span><span><strong>All-Weather Comfort</strong> with continuous bedroom AC cooling and peaceful, humidity-free rest</span></li>
             <li><span class="fi">🏠</span><span><strong>Kitchenette</strong> and private changing room for easy post-pool transitions</span></li>
             <li><span class="fi">🧺</span><span><strong>Complimentary laundry</strong> with washing machine access for spin-drying swimwear and towels</span></li>
             <li><span class="fi">🔒</span><span><strong>On-site security</strong> for complete peace of mind</span></li>
           </ul>
           <div class="quote-box">
-            <strong>🌿</strong> Enjoy peaceful post-monsoon weather, warm drinks, and a private farmhouse made for slow, cozy evenings.
+            <strong>🍂</strong> Enjoy pleasant autumn weather, warm spiced chai, and a private farmhouse made for slow, cozy memories.
           </div>
-          <a href="https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20the%20September%20Serenity%20%26%20Melodies%20Full%20Day%20Package%20at%20Soil%20%26%20Splash%20Farmhouse." class="book-btn" target="_blank" rel="noopener noreferrer">Book September Serenity &amp; Melodies →</a>
+          <a href="https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20the%20October%20Autumn%20Bliss%20%26%20Melodies%20Full%20Day%20Package%20at%20Soil%20%26%20Splash%20Farmhouse." class="book-btn" target="_blank" rel="noopener noreferrer">Book October Autumn Bliss &amp; Melodies →</a>
         </div>
       </div>
 
@@ -1246,8 +1446,8 @@ html[data-theme="dark"] footer {
       <div class="pkg reveal reveal-delay-2">
         <div class="pkg-head">
           <span class="pkg-badge mini">Mini Package</span>
-          <div class="pkg-name">🍂 September Serenity<br>Mini Escape 🌿</div>
-          <div class="pkg-tagline">Mid-week peaceful getaways, family bonding, and nature lovers looking to escape the city bustle.</div>
+          <div class="pkg-name">🍂 October Autumn Breeze<br>Mini Escape 🌿</div>
+          <div class="pkg-tagline">Mid-week peaceful getaways, family bonding, and nature lovers seeking crisp autumn calm.</div>
           <div class="pkg-price">
             <span class="pkg-price-num">₹7,000</span>
             <span class="pkg-price-info">Up to<br>8 people</span>
@@ -1304,7 +1504,7 @@ html[data-theme="dark"] footer {
 
           <ul class="feat-list" style="margin-top:20px">
             <li><span class="fi">❄️</span><span><strong>Climate control</strong> with a large AC hall plus dedicated bedroom cooling for a humidity-free rest</span></li>
-            <li><span class="fi">☕</span><span><strong>September special perks</strong> with complimentary hot, crispy seasonal frozen snacks</span></li>
+            <li><span class="fi">☕</span><span><strong>October special perks</strong> with complimentary hot, crispy seasonal snacks and warm beverages</span></li>
             <li><span class="fi">🏊</span><span><strong>Private pool access</strong> with unlimited access anytime</span></li>
             <li><span class="fi">🧺</span><span><strong>Laundry convenience</strong> with complimentary washing machine access for swimwear and towels</span></li>
             <li><span class="fi">🏠</span><span><strong>Kitchenette</strong> and private changing room for easy transitions</span></li>
@@ -1315,7 +1515,7 @@ html[data-theme="dark"] footer {
           </div>
 
           <a id="mini-book-btn"
-             href="https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20the%20September%20Serenity%20Mini%20Escape%20(Slot%201%3A%2012PM-8PM)%20at%20Soil%20%26%20Splash%20Farmhouse."
+             href="https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20the%20October%20Autumn%20Breeze%20Mini%20Escape%20(Slot%201%3A%2012PM-8PM)%20at%20Soil%20%26%20Splash%20Farmhouse."
              class="book-btn" target="_blank" rel="noopener noreferrer">Book Slot 1 (Day) →</a>
         </div>
       </div>
@@ -1412,8 +1612,8 @@ html[data-theme="dark"] footer {
         <div class="vibe-overlay">
           <span class="vibe-emoji">🌞</span>
           <div class="vibe-when">Afternoon · 1 PM</div>
-          <div class="vibe-title">Pool O'Clock</div>
-          <p class="vibe-desc">Dive in, float away, let the cool water do what 42°C can't.</p>
+          <div class="vibe-title">Pleasant Autumn Swim</div>
+          <p class="vibe-desc">Dive into crystal blue waters under mild golden sun — pure refreshing bliss.</p>
         </div>
       </div>
       <div class="vibe sunset reveal reveal-delay-2">
@@ -1421,8 +1621,8 @@ html[data-theme="dark"] footer {
         <div class="vibe-overlay">
           <span class="vibe-emoji">🌅</span>
           <div class="vibe-when">Evening · 6 PM</div>
-          <div class="vibe-title">Golden Hour</div>
-          <p class="vibe-desc">RGB lights on, music up — the pool glows in every colour.</p>
+          <div class="vibe-title">Golden Hour Glow</div>
+          <p class="vibe-desc">Cool evening breeze, steaming masala chai &amp; glowing RGB pool lights.</p>
         </div>
       </div>
       <div class="vibe night reveal reveal-delay-3">
@@ -1431,7 +1631,7 @@ html[data-theme="dark"] footer {
           <span class="vibe-emoji">⭐</span>
           <div class="vibe-when">Night · 10 PM+</div>
           <div class="vibe-title">Stars &amp; Stories</div>
-          <p class="vibe-desc">Sunken seating, BBQ smoke, poolside movie — open skies above.</p>
+          <p class="vibe-desc">Sunken seating, sizzling BBQ smoke, open starry skies &amp; crisp autumn air.</p>
         </div>
       </div>
     </div>
@@ -1449,7 +1649,7 @@ html[data-theme="dark"] footer {
       <div class="am reveal"><span class="am-i">🧊</span><span class="am-l">Ice Box</span></div>
       <div class="am reveal"><span class="am-i">🎵</span><span class="am-l">Music System</span></div>
       <div class="am reveal"><span class="am-i">💡</span><span class="am-l">RGB Pool Lights</span></div>
-      <div class="am reveal"><span class="am-i">🍧</span><span class="am-l">Frozen Snacks</span></div>
+      <div class="am reveal"><span class="am-i">☕</span><span class="am-l">Hot Chai &amp; Snacks</span></div>
       <div class="am reveal"><span class="am-i">🛋️</span><span class="am-l">Pool Loungers</span></div>
       <div class="am reveal"><span class="am-i">🍖</span><span class="am-l">BBQ Setup</span></div>
       <div class="am reveal"><span class="am-i">📺</span><span class="am-l">Smart TV</span></div>
@@ -1492,11 +1692,11 @@ html[data-theme="dark"] footer {
 <!-- ═══ BOOKING CTA ════════════════════════════════════════ -->
 <section class="cta-section" id="book">
   <div class="cta-card reveal">
-    <span class="cta-eyebrow">Limited September 2026 Slots</span>
+    <span class="cta-eyebrow">Limited October 2026 Slots</span>
     <h2 class="cta-h">Ready to<br><em>escape?</em></h2>
-    <p class="cta-p">WhatsApp us to check availability and lock in your date. September slots fill up fast — don't miss out.</p>
+    <p class="cta-p">WhatsApp us to check availability and lock in your date. October weekend &amp; festive slots fill up fast — don't miss out.</p>
     <div class="cta-buttons">
-      <a href="https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20Soil%20%26%20Splash%20Farmhouse.%20Please%20share%20September%202026%20availability." class="wa-btn" target="_blank" rel="noopener noreferrer">
+      <a href="https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20Soil%20%26%20Splash%20Farmhouse.%20Please%20share%20October%202026%20availability." class="wa-btn" target="_blank" rel="noopener noreferrer">
         <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         Book on WhatsApp
       </a>
@@ -1599,8 +1799,8 @@ html[data-theme="dark"] footer {
   const bookBtn  = document.getElementById('mini-book-btn');
 
   const wa = {
-    1: 'https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20the%20September%20Serenity%20Mini%20Escape%20(Slot%201%3A%2012PM-8PM)%20at%20Soil%20%26%20Splash%20Farmhouse.',
-    2: 'https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20the%20September%20Serenity%20Mini%20Escape%20(Slot%202%3A%2010PM-9AM)%20at%20Soil%20%26%20Splash%20Farmhouse.',
+    1: 'https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20the%20October%20Autumn%20Breeze%20Mini%20Escape%20(Slot%201%3A%2012PM-8PM)%20at%20Soil%20%26%20Splash%20Farmhouse.',
+    2: 'https://wa.me/916389332211?text=Hi!%20I%20want%20to%20book%20the%20October%20Autumn%20Breeze%20Mini%20Escape%20(Slot%202%3A%2010PM-9AM)%20at%20Soil%20%26%20Splash%20Farmhouse.',
   };
   const labels = { 1: 'Book Slot 1 — Day →', 2: 'Book Slot 2 — Night →' };
 
